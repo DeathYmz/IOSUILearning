@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MBProgressHUD/MBProgressHUD.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YMZToast : UIView
-
++ (void)showStatus:(NSString *)text;
++ (void)showStatus:(NSString *)text duration:(CGFloat)duration;
++ (void)showStatus:(NSString *)text duration:(CGFloat)duration view:(UIView *)view;
++ (void)configure:(MBProgressHUD *)hud;
++ (void)showProgress:(NSString *)text;
++ (void)showProgress:(NSString *)text duration:(CGFloat)duration;
++ (void)showProgress:(NSString *)text duration:(CGFloat)duration view:(UIView *)view;
 @end
 
 NS_ASSUME_NONNULL_END

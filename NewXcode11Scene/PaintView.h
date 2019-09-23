@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PaintView : UIView
-
+@property (nonatomic,strong) UIScrollView * scrollView;
+@property (nonatomic,strong) UIColor * circleColor;
 @end
 
 NS_ASSUME_NONNULL_END

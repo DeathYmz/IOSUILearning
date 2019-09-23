@@ -11,7 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YMZAppDelegate : AppDelegate
-
+@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) UIImageView *launchView;
+@property (nonatomic, strong) UIView *view;
 @end
 
 NS_ASSUME_NONNULL_END
+

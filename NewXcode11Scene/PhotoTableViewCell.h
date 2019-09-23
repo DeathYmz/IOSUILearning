@@ -10,8 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PhotoTableViewCell : UITableViewCell
-
+@interface PhotoTableViewCell : UITableViewCell <NSCoding>
+@property (nonatomic, strong) UINavigationController * navigation;
 @end
 
 NS_ASSUME_NONNULL_END
