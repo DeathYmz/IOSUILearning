@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UIImageView *launchView;
 @property (nonatomic, strong) UIView *view;
+@property (nonatomic, strong) UIWindow *window;
 @end
 
 NS_ASSUME_NONNULL_END

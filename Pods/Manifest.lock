@@ -22,6 +22,7 @@ PODS:
   - SDWebImage (5.1.1):
     - SDWebImage/Core (= 5.1.1)
   - SDWebImage/Core (5.1.1)
+  - YYCache (1.0.4)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.2.1)
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - MJRefresh
   - MMKV
   - SDWebImage
+  - YYCache
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -41,6 +43,7 @@ SPEC REPOS:
     - MJRefresh
     - MMKV
     - SDWebImage
+    - YYCache
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -50,7 +53,8 @@ SPEC CHECKSUMS:
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
   MMKV: 031ae51aedc0af1b250922f7ed8a6b6ee2f94c4c
   SDWebImage: 96d7f03415ccb28d299d765f93557ff8a617abd8
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
 
-PODFILE CHECKSUM: bb6cef46ab2846cfd69af9faf902324c1cab91f8
+PODFILE CHECKSUM: 4c918799d88d9ae3bd94dfa6ce108e17a4ffa5ef
 
 COCOAPODS: 1.6.2

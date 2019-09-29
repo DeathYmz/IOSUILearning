@@ -22,11 +22,33 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //    [NSThread sleepForTimeInterval:2];
     [self setupFirstView];
-//    [self showLaunchImageView];//调用启动图动画
+    [self showLaunchImageView];//调用启动图动画
     [self addADLaunchController];
+    
     return YES;
 }
 
+- (void) setupFirstView {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window setHidden:NO];
+    ViewController *VC =  [[ViewController alloc] init];
+    VC.title=@"计数器";
+    FindViewController  *FVC =[[FindViewController alloc] init];
+    FVC.title=@"网址搜索";
+    PhotoViewController  *PVC = [[PhotoViewController alloc] init];
+    PVC.title=@"照片";
+    SleepViewController  *SVC = [[SleepViewController alloc] init];
+    SVC.title=@"催眠";
+    NavihationViewController * navVC= [[NavihationViewController alloc] initWithRootViewController:VC];
+    NavihationViewController * navFVC= [[NavihationViewController alloc] initWithRootViewController:FVC];
+    NavihationViewController * navPVC= [[NavihationViewController alloc] initWithRootViewController:PVC];
+    NavihationViewController * navSVC = [[NavihationViewController alloc] initWithRootViewController:SVC];
+    self.tabBarController = [[UITabBarController alloc] init];
+    self.tabBarController.viewControllers = @[navVC,navFVC,navPVC,navSVC];
+    self.window.rootViewController =  self.tabBarController;
+    [self.window makeKeyAndVisible];
+}
 //启动动画
 -(void)showLaunchImageView{
 
@@ -81,28 +103,6 @@
 }
 
 
-- (void) setupFirstView {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor whiteColor];
-    ViewController * VC =  [[ViewController alloc] init];
-    VC.title=@"计数器";
-    FindViewController  * FVC =[[FindViewController alloc] init];
-    FVC.title=@"网址搜索";
-    PhotoViewController  * PVC = [[PhotoViewController alloc] init];
-    PVC.title=@"照片";
-    SleepViewController  * SVC = [[SleepViewController alloc] init];
-    SVC.title=@"催眠";
-    NavihationViewController * navVC= [[NavihationViewController alloc] initWithRootViewController:VC];
-    NavihationViewController * navFVC= [[NavihationViewController alloc] initWithRootViewController:FVC];
-    NavihationViewController * navPVC= [[NavihationViewController alloc] initWithRootViewController:PVC];
-    NavihationViewController * navSVC = [[NavihationViewController alloc] initWithRootViewController:SVC];
-    self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = @[navVC,navFVC,navPVC,navSVC];
-    self.window.rootViewController =  self.tabBarController;
-    [self.window makeKeyAndVisible];
-    
-    
-}
 
 //加载广告
 - (void)addADLaunchController

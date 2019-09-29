@@ -11,6 +11,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "MBProgressHUD.h"//open source
 #import "YMZToast.h"
+#import "NSObject+Extensions.h"
 @interface AlertViewController ()
 @property (nonatomic, strong) UIActivityIndicatorView *loadingView;
 @end

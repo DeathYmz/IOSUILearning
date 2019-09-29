@@ -11,6 +11,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "AlertViewController.h"
+#import "NSObject+Extensions.h"
 @interface PhotoDetailViewController ()
 @end
 
@@ -28,13 +29,13 @@
     self.tabBarController.tabBar.hidden = YES;
     self.navigationItem.backBarButtonItem.tintColor = [UIColor whiteColor];
 }
+- (void)viewDidDisappear:(BOOL)animated {
+    self.tabBarController.tabBar.hidden = NO;
+    self.navigationItem.backBarButtonItem.tintColor = [UIColor whiteColor];
+}
 -(void)setupRightMoreItem{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    NSString *bundlePath = [[ NSBundle mainBundle] pathForResource:@"Bundle" ofType :@"bundle"];
-    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-    NSString *img_path = [bundle pathForResource:@"add-hover" ofType:@"png"];
-    UIImage *image = [UIImage imageWithContentsOfFile:img_path];
-    [button setImage:image forState:UIControlStateNormal];
+    [button setImage:[self mw_imageNamed:@"add" inBundle:@"PhotoShowResource"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(selectedImage) forControlEvents:UIControlEventTouchUpInside];
     //button.frame.size = CGSizeMake(40, 40);
     UIBarButtonItem *rightItem =[[UIBarButtonItem alloc] initWithCustomView:button];

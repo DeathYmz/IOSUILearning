@@ -39,7 +39,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.navigationItem setHidesBackButton:YES];
     self.navigationItem.title = @"照片";
-    
+    self.tabBarController.tabBar.hidden = NO;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

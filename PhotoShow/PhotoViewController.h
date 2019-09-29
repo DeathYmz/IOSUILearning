@@ -11,8 +11,9 @@
 #import "PhotoItemStore.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PhotoViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource>
+@interface PhotoViewController : UIViewController
 @property (nonatomic , strong) UIScrollView * scrollView;
+
 
 @end
 

@@ -24,5 +24,6 @@ target 'NewXcode11Scene' do
     pod 'MBProgressHUD'
     pod 'MMKV'
     pod 'SDWebImage'
+    pod 'YYCache'
   
 end

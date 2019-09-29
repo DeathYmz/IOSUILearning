@@ -8,6 +8,7 @@
 
 #import "SleepViewController.h"
 #import "PaintView.h"
+#import "ProfileViewController.h"
 @interface SleepViewController ()
 
 @end
@@ -15,16 +16,8 @@
 @implementation SleepViewController
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     [self.view layoutIfNeeded];
-    
-//    NSString *bundlePath = [[ NSBundle mainBundle] pathForResource:@"Bundle" ofType :@"bundle"];
-//    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-//    NSString *img_path = [bundle pathForResource:@"86e2-hvscktf7094826" ofType:@"jpg"];
-//    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:img_path]];
-//    [self.view addSubview:imageView];
-    
     CAGradientLayer * gradientLayer = [[CAGradientLayer alloc] init];
     gradientLayer.frame = self.view.bounds;
     gradientLayer.colors =  @[(__bridge id)[UIColor yellowColor].CGColor, (__bridge id)[UIColor redColor].CGColor,(__bridge id)[UIColor  blueColor].CGColor];
@@ -49,8 +42,29 @@
     [self.view addSubview:circle];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    self.tabBarController.tabBar.hidden = NO;
+    [self initNavigation];
+}
+-(void) initNavigation {
+    //navagation color
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
+    NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"Bundle" ofType:@"bundle"]];
+    NSString *imagePath = [bundle pathForResource:@"list" ofType:@"png"];
+    UIBarButtonItem *rightButton =
+    [[UIBarButtonItem alloc] initWithImage:[UIImage imageWithContentsOfFile:imagePath]
+                                     style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector(profileView:)];
+    rightButton.tintColor=[UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem = rightButton;
+}
+
+- (void)profileView:(id)sender {
+    ProfileViewController *profile = [[ProfileViewController alloc] init];
+    [self.navigationController pushViewController:profile animated:nil];
+}
 -(void)downloadFile{
-    
     //1.创建url
     NSString *urlStr=@"https://github.com/cnbin/insertDemo/archive/master.zip";
     urlStr =[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -80,14 +94,5 @@
     [downloadTask resume];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
