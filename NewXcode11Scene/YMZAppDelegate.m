@@ -31,7 +31,6 @@
 - (void) setupFirstView {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    [self.window setHidden:NO];
     ViewController *VC =  [[ViewController alloc] init];
     VC.title=@"计数器";
     FindViewController  *FVC =[[FindViewController alloc] init];
