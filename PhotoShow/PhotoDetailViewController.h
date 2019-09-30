@@ -16,11 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIImageView * imageView;
 @property (nonatomic, strong) FLAnimatedImageView *gestImageView;
 @property (nonatomic, strong) NSString *path;
-@property (nonatomic, strong) UINavigationController *navigationController;
 @property (nonatomic, strong) NSArray *imagePaths;
 @property (nonatomic) NSUInteger index;
 
 - (void)loadImage:(NSString *)path;
+-(void)loadPhoto:(UIImage *)image;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -48,6 +48,8 @@
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+}
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -95,9 +97,6 @@
 
 
 -(void)setUpView{
-    
-    //navagation color
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
     [self.view addSubview:self.mainView];
     [self.mainView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.view);

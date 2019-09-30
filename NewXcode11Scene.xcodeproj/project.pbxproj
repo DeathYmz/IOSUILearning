@@ -56,6 +56,7 @@
 		AFD595D9233728B600D649DA /* UIImage+LaunchImage.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD595D8233728B600D649DA /* UIImage+LaunchImage.m */; };
 		AFD595DC23372AD200D649DA /* LaunchView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD595DB23372AD200D649DA /* LaunchView.m */; };
 		AFD595DF23372BA400D649DA /* LaunchViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFD595DE23372BA400D649DA /* LaunchViewManager.m */; };
+		AFFD7EAE2340B5680066451C /* ProfileSelectPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFFD7EAD2340B5680066451C /* ProfileSelectPhotoViewController.m */; };
 		D0846B1B0C48F9A3284AF74D /* libPods-NewXcode11Scene.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4B4A8F395D1F67AC6B3B4D /* libPods-NewXcode11Scene.a */; };
 /* End PBXBuildFile section */
 
@@ -183,6 +184,8 @@
 		AFD595DB23372AD200D649DA /* LaunchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchView.m; sourceTree = "<group>"; };
 		AFD595DD23372BA400D649DA /* LaunchViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchViewManager.h; sourceTree = "<group>"; };
 		AFD595DE23372BA400D649DA /* LaunchViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchViewManager.m; sourceTree = "<group>"; };
+		AFFD7EAC2340B5680066451C /* ProfileSelectPhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileSelectPhotoViewController.h; sourceTree = "<group>"; };
+		AFFD7EAD2340B5680066451C /* ProfileSelectPhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileSelectPhotoViewController.m; sourceTree = "<group>"; };
 		E1219B450B313DC391060FC7 /* Pods-NewXcode11SceneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewXcode11SceneTests.release.xcconfig"; path = "Target Support Files/Pods-NewXcode11SceneTests/Pods-NewXcode11SceneTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -416,6 +419,8 @@
 				AFC071C92338CB4F0044518E /* ProfileTableViewCell.m */,
 				AFC071CE2338FD520044518E /* ProfileModel.h */,
 				AFC071CF2338FD520044518E /* ProfileModel.m */,
+				AFFD7EAC2340B5680066451C /* ProfileSelectPhotoViewController.h */,
+				AFFD7EAD2340B5680066451C /* ProfileSelectPhotoViewController.m */,
 			);
 			path = YMZProfile;
 			sourceTree = "<group>";
@@ -704,6 +709,7 @@
 				AF9BC9C0233E006F002903E4 /* UIResponder+Extensions.m in Sources */,
 				AFC071CA2338CB4F0044518E /* ProfileTableViewCell.m in Sources */,
 				AF03D3A7231D38BF0039B7AE /* FreshGifHeader.m in Sources */,
+				AFFD7EAE2340B5680066451C /* ProfileSelectPhotoViewController.m in Sources */,
 				AF8A8BAA231E0A4A009E1E4F /* PictureCell.m in Sources */,
 				AFBE4C362339B33D0074910C /* NSObject+Extensions.m in Sources */,
 				AF75B2602317FB2900B7F7F4 /* NavihationViewController.m in Sources */,

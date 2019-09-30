@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProfileViewController :UITableViewController <UITableViewDelegate,UITableViewDataSource>
+@interface ProfileViewController :UITableViewController <UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @end
 

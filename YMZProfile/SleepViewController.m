@@ -40,6 +40,12 @@
     PaintView *circle = [[PaintView alloc] initWithFrame:self.view.bounds];
     [circle drawRect:self.view.bounds];
     [self.view addSubview:circle];
+    
+//    dispatch_queue_ myqueue = dispatch_queue_create(@"miaomiao", NULL);
+//    dispatch_async(myqueue, ^{
+//        NSLog(@"miaomiao");
+//    })
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {

@@ -11,6 +11,7 @@
 #import "ProfileTableViewCell.h"
 #import "ProfileModel.h"
 #import "LikeViewController.h"
+#import "PhotoDetailViewController.h"
 typedef enum : NSUInteger {
     ImageTypeCamera,
     ImageTypePhotoLibrary,
@@ -34,6 +35,7 @@ typedef enum : NSUInteger {
     self.tableView.rowHeight = 80;
     self.title = @"我的";
     [self.navigationItem setHidesBackButton:YES];
+    [self.tabBarController.tabBar setHidden:NO];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self initNavigation];
     [self setupData];
@@ -96,7 +98,14 @@ typedef enum : NSUInteger {
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ProfileModel *model = _dataList[indexPath.row];
     if([model.title isEqualToString:@"我的"]){
-        NSLog(@"miao");
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+            imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        } else {
+            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        }
+        imagePicker.delegate = self;
+        [self presentViewController:imagePicker animated:YES completion:nil];
     }
     else if([model.title isEqualToString:@"收藏"]){
         NSLog(@"hei");
@@ -105,6 +114,14 @@ typedef enum : NSUInteger {
     }
 }
 
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info {
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+//    NSURL *url = [info objectForKey:UIImagePickerControllerReferenceURL];
+    PhotoDetailViewController *pvc = [[PhotoDetailViewController alloc] init];
+    [pvc loadPhoto:image];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController pushViewController:pvc animated:nil];
+}
 /*
 #pragma mark - Navigation
 

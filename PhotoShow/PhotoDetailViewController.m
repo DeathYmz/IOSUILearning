@@ -17,22 +17,34 @@
 
 @implementation PhotoDetailViewController
 
+- (instancetype)init {
+    self = [super init];
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.tabBarController.tabBar.hidden = YES;
     self.imageView.image = nil;
     self.imageView.animationImages = nil;
     [self setupRightMoreItem];
     
 }
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     self.tabBarController.tabBar.hidden = YES;
-    self.navigationItem.backBarButtonItem.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
 }
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
 - (void)viewDidDisappear:(BOOL)animated {
     self.tabBarController.tabBar.hidden = NO;
-    self.navigationItem.backBarButtonItem.tintColor = [UIColor whiteColor];
 }
+
+
+
 -(void)setupRightMoreItem{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[self mw_imageNamed:@"add" inBundle:@"PhotoShowResource"] forState:UIControlStateNormal];
@@ -41,6 +53,7 @@
     UIBarButtonItem *rightItem =[[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = rightItem;
 }
+
 -(void)selectedImage{
     NSLog(@"miaomiao??");
     AlertViewController *AVC = [[AlertViewController alloc] init];
@@ -51,12 +64,28 @@
 //        AVC.view.superview.backgroundColor = [UIColor  clearColor];
     }];
 }
+-(void)loadPhoto:(UIImage *)image {
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.imageView = [[UIImageView alloc] initWithImage:image];
+    self.scrollView.contentSize = self.imageView.image.size;
+    self.imageView.center = _scrollView.center;
+    [self.scrollView addSubview:self.imageView];
+    self.scrollView.minimumZoomScale = 0.1;
+    self.scrollView.maximumZoomScale = 5.0;
+    [self.scrollView setZoomScale:0.5 animated:YES];
+    self.scrollView.delegate = self;
+    
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeImage:)];
+    [self.scrollView addGestureRecognizer:swipe];
+    self.scrollView.userInteractionEnabled =YES;
+    [self.view addSubview:self.scrollView];
+    
+}
 - (void)loadImage:(NSString *)path {
     self.path = path;
     self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    NSLog(@"this is  gif====%@",[path pathExtension]);
     //2、利用三方框架FLAnimatedImage
     if([[path pathExtension] isEqualToString:@"gif"]){
         NSURL *url = [NSURL fileURLWithPath:path];
@@ -84,12 +113,6 @@
     UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeImage:)];
     [self.scrollView addGestureRecognizer:swipe];
     self.scrollView.userInteractionEnabled =YES;
-
-    //    添加点击效果
-//    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickImage:)];
-//    [self.scrollView addGestureRecognizer:tap];
-//    self.scrollView.userInteractionEnabled = YES;
-
     [self.view addSubview:self.scrollView];
 }
 //
