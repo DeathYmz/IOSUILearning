@@ -10,6 +10,7 @@
 #import "GesureViewController.h"
 #import <Masonry/Masonry.h>
 #import "NavihationViewController.h"
+#define time 0.2
 /*可以用了：Cocoapods 安装Masonry框架。
  1、打开工程目录 pod init //会直接出现podfile
  2、可以pod search masonry 搜索源是否存在
@@ -19,6 +20,8 @@
 
 @interface ViewController ()
 @property (nonatomic, strong) UIView  * navigationView;
+@property (nonatomic, strong) UIImageView *imageviewLeft;
+@property (nonatomic, strong) UIImageView *imageviewRight;
 @end
 
 @implementation ViewController
@@ -124,21 +127,10 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    //navigatio
-    //     尝试约束
-//    NavihationViewController * NVC = [[NavihationViewController alloc]init];
-//    [self presentViewController:NVC animated:YES completion:nil];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self initView];//  尝试navigation 不动。
-    
-    //实现count 计数器
-    //实现URL输入
-    //实现滑动
-    UIScreenEdgePanGestureRecognizer *edgeGes = [[UIScreenEdgePanGestureRecognizer alloc]  initWithTarget: self  action:@selector(rightPan:)];
-    edgeGes.edges = UIRectEdgeRight;
+    [self initView];
+    UIPanGestureRecognizer *edgeGes = [[UIPanGestureRecognizer alloc]  initWithTarget: self  action:@selector(rightPan:)];
     [self.view addGestureRecognizer:edgeGes];
-    
 }
 
 
@@ -150,13 +142,68 @@
     NSLog(@"push???");
 }
 
--(void)rightPan:(UIPanGestureRecognizer *)recognizer{
-    GesureViewController * GVC = [[GesureViewController alloc]init];
-    NSAssert([NSThread isMainThread], @"add child view controller must be called on the main thread");
-    //    self.accessibilityViewIsModal = YES;
-    //    self.providesPresentationContextTransitionStyle = YES;
-        [GVC setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-    [self presentViewController:GVC animated:YES completion:nil];
+- (void)rightPan:(UIPanGestureRecognizer*)recongizer {
+    NSLog(@"UIPanGestureRecognizer");
+    NSUInteger index = [self.tabBarController selectedIndex];
+    CGPoint point = [recongizer translationInView:self.view];
+    NSLog(@"%f,%f",point.x,point.y);
+    recongizer.view.center = CGPointMake(recongizer.view.center.x + point.x, recongizer.view.center.y);
+    [recongizer setTranslation:CGPointMake(0, 0) inView:self.view];
+    if (recongizer.state == UIGestureRecognizerStateEnded) {
+        if (recongizer.view.center.x < [UIScreen mainScreen].bounds.size.width && recongizer.view.center.x > 0 ) {
+            [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                recongizer.view.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2 ,[UIScreen mainScreen].bounds.size.height/2);
+            }completion:^(BOOL finished) {
+                
+            }];
+        } else if (recongizer.view.center.x <= 0 ){
+            [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                recongizer.view.center = CGPointMake(-[UIScreen mainScreen].bounds.size.width/2 ,[UIScreen mainScreen].bounds.size.height/2);
+            }completion:^(BOOL finished) {
+                [self.tabBarController setSelectedIndex:index+1];
+                recongizer.view.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2 ,[UIScreen mainScreen].bounds.size.height/2);
+            }];
+        } else {
+            [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                recongizer.view.center = CGPointMake([UIScreen mainScreen].bounds.size.width*1.5 ,[UIScreen mainScreen].bounds.size.height/2);
+            }completion:^(BOOL finished) {
+                [self.tabBarController setSelectedIndex:index-1];
+                recongizer.view.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2 ,[UIScreen mainScreen].bounds.size.height/2);
+            }];
+        }
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    NSUInteger selectedIndex = [self.tabBarController selectedIndex];
+    //if(selectedIndex + 1 < 4 ){
+        UIViewController* v2 = [self.tabBarController.viewControllers objectAtIndex:selectedIndex+1];
+        UIImage* image2 = [self imageByCropping:v2.view toRect:v2.view.bounds];
+        _imageviewRight = [[UIImageView alloc] initWithImage:image2];
+        _imageviewRight.frame = CGRectMake(_imageviewRight.frame.origin.x + [UIScreen mainScreen].bounds.size.width, 0, _imageviewRight.frame.size.width, _imageviewRight.frame.size.height);
+        [self.view addSubview:_imageviewRight];
+    //}
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [_imageviewRight removeFromSuperview];
+}
+//与pan结合使用 截图方法，图片用来做动画
+-(UIImage*)imageByCropping:(UIView*)imageToCrop toRect:(CGRect)rect
+{
+    CGFloat scale = [[UIScreen mainScreen] scale];
+    CGSize pageSize = CGSizeMake(scale*rect.size.width, scale*rect.size.height) ;
+    UIGraphicsBeginImageContext(pageSize);
+    CGContextScaleCTM(UIGraphicsGetCurrentContext(), scale, scale);
+    
+    CGContextRef resizedContext =UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(resizedContext,-1*rect.origin.x,-1*rect.origin.y);
+    [imageToCrop.layer renderInContext:resizedContext];
+    UIImage*imageOriginBackground =UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    imageOriginBackground = [UIImage imageWithCGImage:imageOriginBackground.CGImage scale:scale orientation:UIImageOrientationUp];
+    
+    return imageOriginBackground;
 }
 
 -(void)onClickNextPageButton:(id)sender{
