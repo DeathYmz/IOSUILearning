@@ -14,7 +14,6 @@
 #import "UIResponder+Extensions.h"
 @implementation PhotoTableViewCell
 
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -27,8 +26,6 @@
         [self.contentView addSubview:self.arrowImageView];
         [self __initConstranints];
         
-        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickImage:)];
-        [self.imageView addGestureRecognizer:tap];
         self.imageView.userInteractionEnabled = YES;
     }
     return self;
@@ -39,12 +36,11 @@
     self.detailLabel.attributedText = model.attrbutedDetail;
     self.icon.image = [UIImage imageWithContentsOfFile:model.detail];
     self.isLike = model.isLike;
-    
     if(model.isLike) {
-        UIImage *arrowImage = [self mw_imageNamed:@"like" inBundle:@"YMZProfileResource"];
+        UIImage *arrowImage = [self mw_imageNamed:@"like" inBundle:@"PhotoShowResource"];
         self.arrowImageView.image = arrowImage;
     } else {
-        UIImage *arrowImage = [self mw_imageNamed:@"dislike" inBundle:@"YMZProfileResource"];
+        UIImage *arrowImage = [self mw_imageNamed:@"dislike" inBundle:@"PhotoShowResource"];
         self.arrowImageView.image = arrowImage;
     }
 }
@@ -104,7 +100,7 @@
 
 - (UIImageView *)arrowImageView {
     if (!_arrowImageView) {
-        UIImage *arrowImage = [self mw_imageNamed:@"dislike" inBundle:@"YMZProfileResource"];
+        UIImage *arrowImage = [self mw_imageNamed:@"dislike" inBundle:@"PhotoShowResource"];
         _arrowImageView = [[UIImageView alloc] initWithImage:arrowImage];
         _arrowImageView.userInteractionEnabled = YES;
         UIGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(arrowImageDidClick)];
@@ -118,7 +114,6 @@
     event.userInfo = [@{
                         @"name" : @"arrowIcon"
                         } mutableCopy];
-    //event.indexPath = self;
     [self.nextResponder mw_respondEvent:event];
 }
 
