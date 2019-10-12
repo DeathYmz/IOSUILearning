@@ -75,7 +75,7 @@
 
 -(NSMutableArray *)dataList{
     if(!_dataList){
-        NSArray *array = [[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"Bundle" ofType:@"bundle"]] pathsForResourcesOfType:@"" inDirectory:nil];
+        NSArray *array =[[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"Bundle" ofType:@"bundle"]] pathsForResourcesOfType:@"" inDirectory:nil];
         _dataList = [NSMutableArray arrayWithCapacity:array.count];
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -128,8 +128,8 @@
 
 -(void)setupData{
     [self.dataModel.sectionModelArray removeAllObjects];
-    
     TableViewSectionModel *sectionModel = [[TableViewSectionModel alloc] init];
+    
     [self.dataList enumerateObjectsUsingBlock:^(id model, NSUInteger idx, BOOL * _Nonnull stop) {
         TableViewCellModel *cellModel = [[TableViewCellModel alloc] init];
         __weak typeof(self) wself = self;
@@ -156,7 +156,6 @@
 - (void)mw_respondEvent:(NSObject<MWEvent> *)event {
     if ([event.sender isKindOfClass:[PhotoTableViewCell class]]) {
         if ([[event.userInfo stringForKey:@"name"] isEqualToString:@"arrowIcon"]) {
-            
             NSIndexPath *indexPath = [self.mainView indexPathForCell:event.sender];
             PhotoModel *model = _dataList[indexPath.row];
             model.isLike = !model.isLike;
@@ -167,7 +166,6 @@
             [userDefaults synchronize];
             //添加手势获取cell的信息
             [self setupData];
-            
         }
     }
 }
